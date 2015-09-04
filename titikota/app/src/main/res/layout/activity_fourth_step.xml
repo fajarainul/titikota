@@ -1,0 +1,43 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/fourth_step"
+    tools:context="com.fajarainul.coconut_dev.titikota.SecondStepActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Dari warga Jakarta"
+        android:textStyle="bold"
+        android:gravity="center_horizontal"
+        android:layout_above="@+id/toHome"
+        android:layout_marginTop="30dp"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="24dp"
+        android:layout_alignParentTop="true"
+        android:id="@+id/second_header"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="untuk Jakarta yang lebih baik \n \n TITIKOTA"
+        android:gravity="center_horizontal"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="20dp"
+        android:layout_marginTop="42dp"
+        android:layout_alignTop="@+id/second_header"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Home"
+        android:id="@+id/toHome"
+        android:clickable="true"
+        android:textColor="#ffffffff"
+        android:background="#ff4e87d5"
+        android:paddingLeft="60dp"
+        android:paddingRight="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"/>
+</RelativeLayout>
