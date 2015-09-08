@@ -2,6 +2,7 @@ package com.fajarainul.coconut_dev.titikota;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -9,7 +10,7 @@ import android.widget.Button;
 
 
 public class SetTimeActivity extends ActionBarActivity {
-
+    String msg = "InI Hanya UnTUK mENcoba TOkENIsasi";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,8 +21,16 @@ public class SetTimeActivity extends ActionBarActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fetch fetch = new Fetch(getApplicationContext());
-                fetch.execute();
+                /*Fetch fetch = new Fetch(getApplicationContext());
+                fetch.execute();*/
+                String[] testSaja = {"satu","dua","tiga","empat"};
+                processClassification process = new processClassification();
+                double[] result = process.checkWord(testSaja);
+
+                for(int i=0;i<result.length;i++){
+                    Log.d("RESULT",Double.toString(result[i]));
+                }
+
 
             }
         });
