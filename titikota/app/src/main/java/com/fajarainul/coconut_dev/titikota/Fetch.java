@@ -4,9 +4,14 @@ package com.fajarainul.coconut_dev.titikota;
  * Created by Fajar Ainul on 04/09/2015.
  */
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
+
+import com.fajarainul.coconut_dev.titikota.data.TitiKotaContract;
+
+import java.util.Vector;
 
 import twitter4j.GeoLocation;
 import twitter4j.Query;
@@ -36,14 +41,30 @@ public class Fetch extends AsyncTask<String, Void, Void> {
         TwitterFactory tf = new TwitterFactory(cb.build());
         Twitter twitter = tf.getInstance();
 
+        Vector<ContentValues> cVector = new Vector<ContentValues>();
+
         try{
             Query query = new Query();
-            // query.setCount(10); // Limit of resultset
-            query.setSince("2011-01-01"); // Start date of search
+            query.setCount(100); // Limit of resultset
             query.setGeoCode(new GeoLocation(-6.2215, 106.8452), 271, Query.KILOMETERS);
             QueryResult result = twitter.search(query);
             for (twitter4j.Status status : result.getTweets()) {
-                Log.v("@" + status.getUser().getScreenName(), status.getText()+ " "+status.getCreatedAt());
+                Log.v("@" + status.getUser().getScreenName(), status.getText() + " " + status.getCreatedAt());
+
+                ContentValues nilaiValues = new ContentValues();
+
+                nilaiValues.put(TitiKotaContract.TweetEntry.COLUMN_CREATED_AT, status.getCreatedAt().);
+                nilaiValues.put(TitiKotaContract.TweetEntry.COLUMN_USER, status.getUser().getScreenName());
+                nilaiValues.put(TitiKotaContract.TweetEntry.COLUMN_TWEET, status.getText());
+
+                cVector.add(nilaiValues);
+            }
+
+            if (cVector.size() > 0) {
+                ContentValues[] cvArray = new ContentValues[cVector.size()];
+                cVector.toArray(cvArray);
+
+                mContext.getContentResolver().bulkInsert(TitiKotaContract.TweetEntry.CONTENT_URI, cvArray);
             }
         }
         catch (TwitterException tw){

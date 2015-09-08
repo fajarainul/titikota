@@ -20,9 +20,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.fajarainul.coconut_dev.titikota.data.TitiKotaContract.TweetEntry;
-import com.fajarainul.coconut_dev.titikota.data.TitiKotaContract.PWZEntry;
-import com.fajarainul.coconut_dev.titikota.data.TitiKotaContract.PZCEntry;
-import com.fajarainul.coconut_dev.titikota.data.TitiKotaContract.PZEntry;
 
 
 /**
@@ -48,7 +45,7 @@ public class TitiKotaDbHelper extends SQLiteOpenHelper {
                 TweetEntry.COLUMN_CREATED_AT + " TEXT NOT NULL, " +
                 TweetEntry.COLUMN_USER + " TEXT NOT NULL, " +
                 TweetEntry.COLUMN_TWEET + " TEXT NOT NULL, " +
-                TweetEntry.COLUMN_KLD + " REAL NOT NULL);";
+                TweetEntry.COLUMN_KLD + " REAL);";
 
         final String SQL_CREATE_PWZ_TABLE = "";
         final String SQL_CREATE_PZC_TABLE = "";
@@ -56,9 +53,9 @@ public class TitiKotaDbHelper extends SQLiteOpenHelper {
 
 
         sqLiteDatabase.execSQL(SQL_CREATE_TWEET_TABLE);
-        sqLiteDatabase.execSQL(SQL_CREATE_PWZ_TABLE);
+        /*sqLiteDatabase.execSQL(SQL_CREATE_PWZ_TABLE);
         sqLiteDatabase.execSQL(SQL_CREATE_PZC_TABLE);
-        sqLiteDatabase.execSQL(SQL_CREATE_PZ_TABLE);
+        sqLiteDatabase.execSQL(SQL_CREATE_PZ_TABLE);*/
     }
 
     @Override
@@ -70,9 +67,9 @@ public class TitiKotaDbHelper extends SQLiteOpenHelper {
         // If you want to update the schema without wiping data, commenting out the next 2 lines
         // should be your top priority before modifying this method.
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + TweetEntry.TABLE_NAME);
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + PWZEntry.TABLE_NAME);
+        /*sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + PWZEntry.TABLE_NAME);
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + PZCEntry.TABLE_NAME);
-        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + PZEntry.TABLE_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + PZEntry.TABLE_NAME);*/
         onCreate(sqLiteDatabase);
     }
 }
