@@ -31,6 +31,13 @@ public class Fetch extends AsyncTask<String, Void, Void> {
     }
 
     @Override
+    protected void onPostExecute(Void aVoid) {
+        super.onPostExecute(aVoid);
+        SetTimeActivity.test();
+        Log.d("TEST SAJA DISINI",Integer.toString(SetTimeActivity.test()));
+    }
+
+    @Override
     protected Void doInBackground(String... params) {
         ConfigurationBuilder cb = new ConfigurationBuilder();
         cb.setDebugEnabled(true)
@@ -49,13 +56,18 @@ public class Fetch extends AsyncTask<String, Void, Void> {
             query.setGeoCode(new GeoLocation(-6.2215, 106.8452), 271, Query.KILOMETERS);
             QueryResult result = twitter.search(query);
             for (twitter4j.Status status : result.getTweets()) {
-                Log.v("@" + status.getUser().getScreenName(), status.getText() + " " + status.getCreatedAt());
+                Log.e("@" + status.getUser().getScreenName(), status.getText() + " " + status.getCreatedAt());
+
+                processClassification process = new processClassification(mContext);
+                int resultClass = process.main(status.getText());
+                Log.d("FINAL RESULT", Integer.toString(resultClass));
 
                 ContentValues nilaiValues = new ContentValues();
 
-                nilaiValues.put(TitiKotaContract.TweetEntry.COLUMN_CREATED_AT, status.getCreatedAt().);
+                nilaiValues.put(TitiKotaContract.TweetEntry.COLUMN_CREATED_AT, status.getCreatedAt().toString());
                 nilaiValues.put(TitiKotaContract.TweetEntry.COLUMN_USER, status.getUser().getScreenName());
                 nilaiValues.put(TitiKotaContract.TweetEntry.COLUMN_TWEET, status.getText());
+                nilaiValues.put(TitiKotaContract.TweetEntry.COLUMN_CLASS, resultClass);
 
                 cVector.add(nilaiValues);
             }
