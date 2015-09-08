@@ -45,7 +45,7 @@ public class TitiKotaDbHelper extends SQLiteOpenHelper {
                 TweetEntry.COLUMN_CREATED_AT + " TEXT NOT NULL, " +
                 TweetEntry.COLUMN_USER + " TEXT NOT NULL, " +
                 TweetEntry.COLUMN_TWEET + " TEXT NOT NULL, " +
-                TweetEntry.COLUMN_KLD + " REAL);";
+                TweetEntry.COLUMN_CLASS + " REAL);";
 
         final String SQL_CREATE_PWZ_TABLE = "";
         final String SQL_CREATE_PZC_TABLE = "";

@@ -50,7 +50,7 @@ public class TitiKotaContract {
         public static final String COLUMN_CREATED_AT = "created_at";
         public static final String COLUMN_USER = "user";
         public static final String COLUMN_TWEET = "tweet";
-        public static final String COLUMN_KLD = "KLD";
+        public static final String COLUMN_CLASS = "class";
 
         public static Uri buildUri(String id){
             return CONTENT_URI.buildUpon().appendPath(id).build();
