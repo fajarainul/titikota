@@ -1,10 +1,8 @@
 package com.fajarainul.coconut_dev.titikota;
 
 import android.content.Context;
-import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.StringTokenizer;
@@ -51,6 +49,9 @@ public class processClassification {
 
 
         List<String> resultToken = token(documentTweet); //melakukan tokenisasi
+        /*for(int i=0;i<resultToken.size();i++){
+            Log.w("hasil token "+Integer.toString(i),resultToken.get(i));
+        }*/
 
         //menghitung PZDnew
         double[] resultPWZ;
@@ -60,11 +61,14 @@ public class processClassification {
 
 
             resultPZDnew[i] = getPZDnew(p_z_topik[i],resultPWZ); //mencari PZD new
+            //Log.w("PZD"+i,Double.toString(resultPZDnew[i]));
         }
 
         //melakukan pengecekan apakah PZDnew = p_z nya, jika iya maka nilai PZDnew pada lancar, diupdate menjadi 0
-        if((resultPZDnew[0]==p_z_topik[0]) && (resultPZDnew[1]==p_z_topik[1]) && (resultPZDnew[2]==p_z_topik[2]) && (resultPZDnew[3]==p_z_topik[3])){
+        double sigma = 0.00005 * 10;
+        if((resultPZDnew[0] == (p_z_topik[0] * sigma)) && (resultPZDnew[1] == (p_z_topik[1] * sigma)) && (resultPZDnew[2]== (p_z_topik[2] * sigma)) && (resultPZDnew[3]==(p_z_topik[3] * sigma))){
             resultPZDnew[3] = 0; //karena lancar pada index ke 3
+            //Log.d("CEK HANYA LANCAR","TRUE");
         }
 
         //menghitung KLD antara PZDnew dengan masing2 PZC
@@ -72,6 +76,7 @@ public class processClassification {
 
         for(int i=0; i<4;i++){
             resultKLD[i] = KLD(resultPZDnew,PZC[i]);
+            //Log.d("RESULT KLD",Double.toString(resultKLD[i]));
         }
 
         //mencari nilai minimum dari hasil KLD
@@ -103,9 +108,6 @@ public class processClassification {
             kata_token.add(key);
         }
         /*
-        * in iuntuk mengecek array saca
-        *
-        *
         for(int i=0; i<kata_token.size();i++){
             Log.v("Test",Integer.toString(i) + ":" + kata_token.get(i));
         }*/
@@ -123,14 +125,15 @@ public class processClassification {
         double[] result={0,0,0,0,0,0,0,0,0,0};
 
         for(int i=0;i<topik.length;i++){
-            boolean testing = Arrays.asList(words).contains(topik[i]);
-            Log.d("testing" + i, Boolean.toString(testing));
+           // boolean testing = Arrays.asList(words).contains("tol");
+            boolean testing = words.contains(topik[i]);
+            //Log.d("testing" + i, Boolean.toString(testing)+"==>"+topik[i]);
             if(!testing){
                 result[i] = 0.00005;
             }else{
                 result[i] = nilaiTopik[i];
             }
-            Log.d("result"+i,Double.toString(result[i]));
+            //Log.d("result"+i,Double.toString(result[i]));
         }
 
         return result;
@@ -163,11 +166,11 @@ public class processClassification {
         double DQP=0;
 
         for(int i=0;i<4;i++){
-            DPQ = DPQ + PZD[i]*Math.log(PZD[i]/PZC[i]);
+            DPQ = DPQ + (PZD[i]*Math.log(PZD[i]/PZC[i]));
         }
 
         for(int j=0;j<4;j++){
-            DQP = DQP + PZC[j]*Math.log(PZC[j]/PZD[j]);
+            DQP = DQP + (PZC[j]*Math.log(PZC[j]/PZD[j]));
         }
 
         KLD = (DQP + DPQ)/2;
@@ -190,7 +193,7 @@ public class processClassification {
                 index_min = i+1;
             }
         }
-
+        //Log.d("RESULT CLASS",Integer.toString(index_min));
         return index_min;
     }
 

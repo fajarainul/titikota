@@ -2,7 +2,6 @@ package com.fajarainul.coconut_dev.titikota;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,7 +9,6 @@ import android.widget.Button;
 
 
 public class SetTimeActivity extends ActionBarActivity {
-    String msg = "InI Hanya UnTUK mENcoba TOkENIsasi";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,7 +22,7 @@ public class SetTimeActivity extends ActionBarActivity {
                 Fetch fetch = new Fetch(getApplicationContext());
                 fetch.execute();
 
-                Log.d("STATUS", fetch.getStatus().toString());
+                //Log.d("STATUS", fetch.getStatus().toString());
                 //String[] testSaja = {"satu","dua","tiga","empat"};
                 //processClassification process = new processClassification(getApplicationContext());
                 //process.main();
@@ -37,6 +35,25 @@ public class SetTimeActivity extends ActionBarActivity {
 
             }
         });
+
+
+        /*
+        Button btn_test = (Button) findViewById(R.id.test);
+
+        btn_test.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                String testSaja = "@TMCPoldaMetro keluar tol cikarang utama.macet total. http://t.co/0sCvZc1VBg";
+                processClassification process = new processClassification(getApplicationContext());
+                process.main(testSaja);
+                /*double[] result = process.checkWord(testSaja);
+
+                for(int i=0;i<result.length;i++){
+                    Log.d("RESULT", Double.toString(result[i]));
+                }
+            }
+        });*/
     }
 
     public static int test(){
@@ -63,15 +80,6 @@ public class SetTimeActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
-    public void processAll(View view){
-
-    }
-
-    public void config(){
-
-    }
-
 
 
 }
