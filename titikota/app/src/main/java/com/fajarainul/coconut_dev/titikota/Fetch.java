@@ -33,7 +33,8 @@ public class Fetch extends AsyncTask<String, Void, Void> {
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
-        SetTimeActivity.test();
+        SetTimeActivity draw = new SetTimeActivity();
+        draw.drawCircleLancar(mContext);
         Log.d("TEST SAJA DISINI",Integer.toString(SetTimeActivity.test()));
     }
 
@@ -51,7 +52,7 @@ public class Fetch extends AsyncTask<String, Void, Void> {
         Vector<ContentValues> cVector = new Vector<ContentValues>();
 
         try{
-            Query query = new Query();
+            Query query = new Query("lancar");
             query.setCount(100); // Limit of resultset
             query.setGeoCode(new GeoLocation(-6.2215, 106.8452), 271, Query.KILOMETERS);
             QueryResult result = twitter.search(query);

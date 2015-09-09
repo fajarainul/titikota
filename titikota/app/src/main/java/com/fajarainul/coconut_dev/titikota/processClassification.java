@@ -1,9 +1,6 @@
 package com.fajarainul.coconut_dev.titikota;
 
 import android.content.Context;
-import android.database.Cursor;
-
-import com.fajarainul.coconut_dev.titikota.data.TitiKotaContract;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,11 +18,13 @@ public class processClassification {
     }
 
     public int main(String documentTweet){
+        /*
         Cursor cursor = context.getContentResolver().query(TitiKotaContract.TweetEntry.CONTENT_URI, null, null, null, null);
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
+            Log.e("Test",  );
             cursor.moveToNext();
-        }
+        }*/
         //topik 1 ==> padat merayap
         //topik 2 ==> macet total
         //topik 3 ==> ramai lancar
@@ -204,6 +203,8 @@ public class processClassification {
         //Log.d("RESULT CLASS",Integer.toString(index_min));
         return index_min;
     }
+
+
 
 
 
