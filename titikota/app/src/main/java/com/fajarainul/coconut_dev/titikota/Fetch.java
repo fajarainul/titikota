@@ -4,8 +4,8 @@ package com.fajarainul.coconut_dev.titikota;
  * Created by Fajar Ainul on 04/09/2015.
  */
 
+import android.app.ProgressDialog;
 import android.content.ContentValues;
-import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
 
@@ -24,18 +24,27 @@ import twitter4j.conf.ConfigurationBuilder;
 
 public class Fetch extends AsyncTask<String, Void, Void> {
 
-    private final Context mContext;
+    private SetTimeActivity activity;
+    ProgressDialog pd;
 
-    public Fetch(Context context) {
-        mContext = context;
+    public Fetch(SetTimeActivity activity) {
+        this.activity = activity;
+        pd = new ProgressDialog(activity);
+    }
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        pd.setMessage("Please wait...");
+        pd.show();
     }
 
     @Override
     protected void onPostExecute(Void aVoid) {
         super.onPostExecute(aVoid);
-        SetTimeActivity draw = new SetTimeActivity();
-        draw.drawCircleLancar(mContext);
-        Log.d("TEST SAJA DISINI",Integer.toString(SetTimeActivity.test()));
+
+        activity.drawCircleLancar(activity);
+        pd.dismiss();
     }
 
     @Override
@@ -52,16 +61,16 @@ public class Fetch extends AsyncTask<String, Void, Void> {
         Vector<ContentValues> cVector = new Vector<ContentValues>();
 
         try{
-            Query query = new Query("lancar");
-            query.setCount(100); // Limit of resultset
-            query.setGeoCode(new GeoLocation(-6.2215, 106.8452), 271, Query.KILOMETERS);
+            Query query = new Query();
+            query.setCount(180); // Limit of resultset
+            query.setGeoCode(new GeoLocation(-6.21462, 106.84513), 271, Query.KILOMETERS);
             QueryResult result = twitter.search(query);
             for (twitter4j.Status status : result.getTweets()) {
                 Log.e("@" + status.getUser().getScreenName(), status.getText() + " " + status.getCreatedAt());
 
-                processClassification process = new processClassification(mContext);
+                processClassification process = new processClassification(activity);
                 int resultClass = process.main(status.getText());
-                Log.d("FINAL RESULT", Integer.toString(resultClass));
+                //Log.d("FINAL RESULT", Integer.toString(resultClass));
 
                 ContentValues nilaiValues = new ContentValues();
 
@@ -77,7 +86,7 @@ public class Fetch extends AsyncTask<String, Void, Void> {
                 ContentValues[] cvArray = new ContentValues[cVector.size()];
                 cVector.toArray(cvArray);
 
-                mContext.getContentResolver().bulkInsert(TitiKotaContract.TweetEntry.CONTENT_URI, cvArray);
+                activity.getContentResolver().bulkInsert(TitiKotaContract.TweetEntry.CONTENT_URI, cvArray);
             }
         }
         catch (TwitterException tw){
