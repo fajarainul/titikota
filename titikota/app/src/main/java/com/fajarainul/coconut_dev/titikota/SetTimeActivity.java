@@ -1,5 +1,6 @@
 package com.fajarainul.coconut_dev.titikota;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -9,7 +10,6 @@ import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +23,7 @@ import java.util.Random;
 
 public class SetTimeActivity extends ActionBarActivity {
     Context context;
+    ProgressDialog pd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,44 +34,19 @@ public class SetTimeActivity extends ActionBarActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Fetch fetch = new Fetch(getApplicationContext());
-                fetch.execute();
 
-                //DrawCircle draw = new DrawCircle(getApplicationContext());
-                //draw.circle();
+                Fetch fetch = new Fetch(SetTimeActivity.this);
 
-                //Log.d("STATUS", fetch.getStatus().toString());
-                //String[] testSaja = {"satu","dua","tiga","empat"};
-                //processClassification process = new processClassification(getApplicationContext());
-                //process.main();
-                /*double[] result = process.checkWord(testSaja);
+                try{
+                    fetch.execute();
+                   // progressBar.dismiss();
 
-                for(int i=0;i<result.length;i++){
-                    Log.d("RESULT", Double.toString(result[i]));
-                }*/
+                }catch (Exception e){
+                    e.printStackTrace();
 
-
-            }
-        });
-
-
-        /*
-        Button btn_test = (Button) findViewById(R.id.test);
-
-        btn_test.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                String testSaja = "@TMCPoldaMetro keluar tol cikarang utama.macet total. http://t.co/0sCvZc1VBg";
-                processClassification process = new processClassification(getApplicationContext());
-                process.main(testSaja);
-                /*double[] result = process.checkWord(testSaja);
-
-                for(int i=0;i<result.length;i++){
-                    Log.d("RESULT", Double.toString(result[i]));
                 }
             }
-        });*/
+        });
     }
 
     public static int test(){
@@ -99,8 +75,9 @@ public class SetTimeActivity extends ActionBarActivity {
     }
 
     public void drawCircleLancar(Context context){
-        Log.e("DRAW","LANCAR");
-        
+        //Log.e("DRAW","LANCAR");
+
+
         RelativeLayout RL_lancar = (RelativeLayout) findViewById(R.id.lancar);
         RelativeLayout RL_ramai_lancar = (RelativeLayout) findViewById(R.id.ramai_lancar);
         RelativeLayout RL_padat_merayap = (RelativeLayout) findViewById(R.id.padat_merayap);
@@ -135,7 +112,7 @@ public class SetTimeActivity extends ActionBarActivity {
         Cursor cursor = context.getContentResolver().query(TitiKotaContract.TweetEntry.CONTENT_URI, null, null, null, null);
         cursor.moveToFirst();
         while(!cursor.isAfterLast()){
-            Log.e("Test", cursor.getString(cursor.getColumnIndex("class")) );
+            //Log.e("Test", cursor.getString(cursor.getColumnIndex("class")) );
             String kelas = cursor.getString(cursor.getColumnIndex("class"));
 
             switch (kelas){
@@ -147,8 +124,6 @@ public class SetTimeActivity extends ActionBarActivity {
                     int randX = rand.nextInt(((RL_padat_merayap.getWidth()-10) - 10) + 1) + 10;
                     int randY = rand.nextInt(((RL_padat_merayap.getHeight()-10) - 10) + 1) + 10;
 
-                    Log.e("RANDX",Integer.toString(randX));
-                    Log.e("RANDY",Integer.toString(randY));
                     canvas_padat_merayap.drawCircle( randX,  randY, 10, paint_padat_merayap);
 
                     break;
@@ -161,8 +136,6 @@ public class SetTimeActivity extends ActionBarActivity {
                     int randX = rand.nextInt(((RL_macet_total.getWidth()-10) - 10) + 1) + 10;
                     int randY = rand.nextInt(((RL_macet_total.getHeight()-10) - 10) + 1) + 10;
 
-                    Log.e("RANDX",Integer.toString(randX));
-                    Log.e("RANDY",Integer.toString(randY));
                     canvas_macet_total.drawCircle( randX,  randY, 10, paint_macet_total);
 
                     break;
@@ -175,8 +148,6 @@ public class SetTimeActivity extends ActionBarActivity {
                     int randX = rand.nextInt(((RL_ramai_lancar.getWidth()-10) - 10) + 1) + 10;
                     int randY = rand.nextInt(((RL_ramai_lancar.getHeight()-10) - 10) + 1) + 10;
 
-                    Log.e("RANDX",Integer.toString(randX));
-                    Log.e("RANDY",Integer.toString(randY));
                     canvas_ramai_lancar.drawCircle( randX,  randY, 10, paint_ramai_lancar);
 
                     break;
@@ -189,8 +160,6 @@ public class SetTimeActivity extends ActionBarActivity {
                     int randX = rand.nextInt(((RL_lancar.getWidth()-10) - 10) + 1) + 10;
                     int randY = rand.nextInt(((RL_lancar.getHeight()-10) - 10) + 1) + 10;
 
-                    Log.e("RANDX",Integer.toString(randX));
-                    Log.e("RANDY",Integer.toString(randY));
                     canvas_lancar.drawCircle( randX,  randY, 10, paint_lancar);
 
                     break;
@@ -199,11 +168,7 @@ public class SetTimeActivity extends ActionBarActivity {
             }
             cursor.moveToNext();
         }
-
-
-        Log.w("CLICKED","TRUE");
-
-
+        cursor.close();
     }
 
 }

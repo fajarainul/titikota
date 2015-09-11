@@ -2,6 +2,7 @@ package com.fajarainul.coconut_dev.titikota;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +16,9 @@ public class ThirdStepActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_third_step);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
 
         Button btn_to_fourth = (Button)findViewById(R.id.toFourth);
 

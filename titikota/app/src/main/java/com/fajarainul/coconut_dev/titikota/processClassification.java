@@ -18,6 +18,8 @@ public class processClassification {
     }
 
     public int main(String documentTweet){
+
+        int resultClass = 0;//kembalian nilai kelass
         /*
         Cursor cursor = context.getContentResolver().query(TitiKotaContract.TweetEntry.CONTENT_URI, null, null, null, null);
         cursor.moveToFirst();
@@ -31,10 +33,10 @@ public class processClassification {
         //topik 4 ==> lancar
 
         double[][] PZC = {
-                    {0.000161856, 0.000175932, 0.000144634, 0.000174398},//topik1
-                    {0.00013488, 0.000175932, 0.000144634, 0.000174398},//topik2
-                    {0.004019423, 0.002427868, 0.003557998, 0.003976282},//topik3
-                    {0.01621257,0.017909923, 0.016719699, 0.016358563},//topik4
+                    {0.00013738,0.00017593, 0.00014463, 0.0001744},//topik1
+                    {0.00013488, 0.00017593, 0.00014463, 0.0001744},//topik2
+                    {0.0028, 0.00040411, 0.00065847, 0.000794},//topik3
+                    {0.0145, 0.0148, 0.0156, 0.0147},//topik4
                     };
         String[][] topik ={
                         {"merayap","padat","arah","ke","dari","lintas","20","lalu","tmcpoldametro","tol"}, //Topik1
@@ -59,23 +61,30 @@ public class processClassification {
         /*for(int i=0;i<resultToken.size();i++){
             Log.w("hasil token "+Integer.toString(i),resultToken.get(i));
         }*/
+        //Log.d("DOKUMEN YANG DIUJI",documentTweet);
 
         //menghitung PZDnew
-        double[] resultPWZ;
+        double[][] resultPWZ = new double[4][10];
         double[] resultPZDnew = new double[4];
         for(int i=0;i<4;i++){
-            resultPWZ = checkWord(resultToken,topik[i],nilaiTopik[i]);//mencari PWZ untuk setiap topik
-
-
-            resultPZDnew[i] = getPZDnew(p_z_topik[i],resultPWZ); //mencari PZD new
+            resultPWZ[i] = checkWord(resultToken,topik[i],nilaiTopik[i]);//mencari PWZ untuk setiap topik
             //Log.w("PZD"+i,Double.toString(resultPZDnew[i]));
         }
+        //Log.d("CEKSAMA","TRUE");
+        boolean ketemu=false;
+        int x = 0;
+        while((!ketemu)&&(x<4)){
+           // Log.d("CEKSAMA ITERASI TOPIK KE "+x,Boolean.toString(ketemu));
+            ketemu = cekSama(resultPWZ[x]);
+            x=x+1;
+        }
+        if(!ketemu){
+            resultClass = 3;
+            return resultClass;
+        }
 
-        //melakukan pengecekan apakah PZDnew = p_z nya, jika iya maka nilai PZDnew pada lancar, diupdate menjadi 0
-        double sigma = 0.00005 * 10;
-        if((resultPZDnew[0] == (p_z_topik[0] * sigma)) && (resultPZDnew[1] == (p_z_topik[1] * sigma)) && (resultPZDnew[2]== (p_z_topik[2] * sigma)) && (resultPZDnew[3]==(p_z_topik[3] * sigma))){
-            resultPZDnew[3] = 0; //karena lancar pada index ke 3
-            //Log.d("CEK HANYA LANCAR","TRUE");
+        for(int i=0;i<4;i++){
+            resultPZDnew[i] = getPZDnew(p_z_topik[i],resultPWZ[i]); //mencari PZD new
         }
 
         //menghitung KLD antara PZDnew dengan masing2 PZC
@@ -86,11 +95,14 @@ public class processClassification {
             //Log.d("RESULT KLD",Double.toString(resultKLD[i]));
         }
 
+
         //mencari nilai minimum dari hasil KLD
-        int resultClass = 0;
+
         resultClass = getClass(resultKLD);
 
+        //Log.d("HASIL KELAS",Integer.toString(resultClass));
         return resultClass;
+
     }
     public List<String> token(String msg){
         List<String> kata_token = new ArrayList<String>();
@@ -136,7 +148,7 @@ public class processClassification {
             boolean testing = words.contains(topik[i]);
             //Log.d("testing" + i, Boolean.toString(testing)+"==>"+topik[i]);
             if(!testing){
-                result[i] = 0.00005;
+                result[i] = 0.0000000001;
             }else{
                 result[i] = nilaiTopik[i];
             }
@@ -191,17 +203,36 @@ public class processClassification {
     * nilai kembalian adalah topik mana yang paling minimum (berarti dokumen termasuk kelas itu)
     * */
     public int getClass(double[] KLD_Result){
-        int index_min=0;
+       int index_min=0;
+       double nilai_min = KLD_Result[0];
 
         for(int i=0;i<3;i++){
-            if(KLD_Result[i] <= KLD_Result[i+1]){
-                index_min = i;
+            if(nilai_min <= KLD_Result[i]){
+                nilai_min = nilai_min;
             }else{
-                index_min = i+1;
+                nilai_min = KLD_Result[i];
+                index_min = i;
             }
         }
         //Log.d("RESULT CLASS",Integer.toString(index_min));
         return index_min;
+    }
+
+    public boolean cekSama(double[] PWZ){
+        boolean ketemu=false;
+        int i = 0;
+        double var = 0.0000000001;
+        //Log.d("VAR",Double.toString(var));
+        while((!ketemu)&&(i<10)){
+            if(PWZ[i]==var){
+                //Log.e("PWZ "+i,Double.toString(PWZ[i]));
+                i=i+1;
+
+            }else{
+                ketemu=true;
+            }
+        }
+        return ketemu;
     }
 
 

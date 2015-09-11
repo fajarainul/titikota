@@ -30,7 +30,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Home"
+        android:text="Beranda"
         android:id="@+id/toHome"
         android:clickable="true"
         android:textColor="#ffffffff"

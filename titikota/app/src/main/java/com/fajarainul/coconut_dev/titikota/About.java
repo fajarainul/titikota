@@ -1,41 +1,24 @@
 package com.fajarainul.coconut_dev.titikota;
 
-import android.content.Intent;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 
 
-public class FourthStepActivity extends ActionBarActivity {
+public class About extends ActionBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fourth_step);
-
-        ActionBar actionBar = getSupportActionBar();
-        actionBar.hide();
-
-        Button btn_to_home = (Button)findViewById(R.id.toHome);
-
-        btn_to_home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(FourthStepActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
+        setContentView(R.layout.activity_about);
     }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_fourth_step, menu);
+        getMenuInflater().inflate(R.menu.menu_about, menu);
         return true;
     }
 

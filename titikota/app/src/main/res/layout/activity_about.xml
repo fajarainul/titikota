@@ -1,0 +1,144 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    tools:context="com.fajarainul.coconut_dev.titikota.About">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:orientation="vertical">
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:longClickable="false"
+            android:maxHeight="100dp"
+            android:maxWidth="100dp"
+            android:minHeight="50dp"
+            android:minWidth="50dp"
+            android:layout_gravity="center_horizontal"
+            android:scaleType="fitCenter"
+            android:src="@drawable/icon_main" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imageView"
+            android:text="TitiKota"
+            android:textSize="30dp"
+            android:gravity="center"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/imageView"
+            android:text="v.1.1"
+            android:textSize="20dp"
+            android:gravity="center"/>
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:text="Sekilas tentang TitiKota"
+            android:textSize="20dp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textView"
+            android:layout_centerHorizontal="true"
+            android:paddingBottom="20dp"
+
+            android:text="TitiKota merupakan aplikasi pencari titik kemacetan di Kota Jakarta berbasis open data dari Twitter"
+            android:gravity="center"/>
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3">
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:id="@+id/pengembang"
+            android:layout_height="wrap_content"
+            android:text="Pengembang TitiKota"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="20dp"/>
+        <TextView
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:id="@+id/team"
+            android:layout_below="@id/pengembang"
+            android:layout_height="wrap_content"
+            android:text="Team Special Topics : "
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="20dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:id="@+id/cahaya"
+            android:layout_below="@id/team"
+            android:layout_height="wrap_content"
+            android:text="Cahaya Sanubari"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="20dp"/>
+        <TextView
+            android:id="@+id/fajar"
+            android:layout_below="@id/cahaya"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mohammad Fajar Ainul Bashri"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="20dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:id="@+id/ihsan"
+            android:layout_below="@id/fajar"
+            android:layout_height="wrap_content"
+            android:text="Muhammad Ihsan Aji W."
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="20dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:id="@+id/email"
+            android:layout_alignParentBottom="true"
+            android:layout_height="wrap_content"
+            android:text="tim.tkhku2015@gmail.com"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="20dp"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:id="@+id/contact"
+            android:layout_above="@id/email"
+            android:layout_height="wrap_content"
+            android:text="Contact us:"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="16dp"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

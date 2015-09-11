@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="content_authority">com.fajarainul.coconut_dev.titikota</string>
     <string name="app_name">TitiKota</string>
     <string name="hello_world">Hello world!</string>
@@ -8,16 +9,17 @@
     <string name="title_activity_set_time">SetTimeActivity</string>
     <string name="title_activity_first_step">FirstStepActivity</string>
     <string name="title_activity_second_step">SecondStepActivity</string>
-    <string name="dropdown">Select Range</string>
+    <string name="dropdown">Pilih Jangka Waktu</string>
 
     <string-array name="range">
-        <item>5</item>
-        <item>10</item>
-        <item>30</item>
-        <item>60</item>
+        <item>5 menit</item>
+        <item>10 menit</item>
+        <item>30 menit</item>
+        <item>60 menit</item>
     </string-array>
 
     <string name="title_activity_third_step">ThirdStepActivity</string>
     <string name="title_activity_fourth_step">FourthStepActivity</string>
+    <string name="title_activity_about">About</string>
 
 </resources>

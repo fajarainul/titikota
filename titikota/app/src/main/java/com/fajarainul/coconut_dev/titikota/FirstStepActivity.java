@@ -2,6 +2,7 @@ package com.fajarainul.coconut_dev.titikota;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -15,6 +16,8 @@ public class FirstStepActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_first_step);
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
 
         Button btn_to_second = (Button)findViewById(R.id.toSecond);
 
