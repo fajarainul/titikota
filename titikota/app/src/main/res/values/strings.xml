@@ -21,5 +21,6 @@
     <string name="title_activity_third_step">ThirdStepActivity</string>
     <string name="title_activity_fourth_step">FourthStepActivity</string>
     <string name="title_activity_about">About</string>
+    <string name="title_activity_tweet_list">TweetList</string>
 
 </resources>

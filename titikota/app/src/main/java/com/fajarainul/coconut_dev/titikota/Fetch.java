@@ -63,7 +63,7 @@ public class Fetch extends AsyncTask<String, Void, Void> {
         try{
             Query query = new Query();
             query.setCount(180); // Limit of resultset
-            query.setGeoCode(new GeoLocation(-6.21462, 106.84513), 271, Query.KILOMETERS);
+            query.setGeoCode(new GeoLocation(-6.21462, 106.84513), 20, Query.KILOMETERS);
             QueryResult result = twitter.search(query);
             for (twitter4j.Status status : result.getTweets()) {
                 Log.e("@" + status.getUser().getScreenName(), status.getText() + " " + status.getCreatedAt());

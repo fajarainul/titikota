@@ -31,6 +31,7 @@ public class TitiKotaContract {
     public static final String PATH_PWZ = "pwz";
     public static final String PATH_PZC = "pzc";
     public static final String PATH_PZ = "pz";
+    public static final String PATH_CLASS = "class";
 
     /* Inner class that defines the table contents of the news table */
     public static final class TweetEntry implements BaseColumns {
@@ -54,6 +55,14 @@ public class TitiKotaContract {
 
         public static Uri buildUri(String id){
             return CONTENT_URI.buildUpon().appendPath(id).build();
+        }
+
+        public static Uri buildClassUri(String id){
+            return CONTENT_URI.buildUpon().appendPath(PATH_CLASS).appendPath(id).build();
+        }
+
+        public static String getClassFromUri(Uri uri){
+            return uri.getPathSegments().get(2);
         }
     }
 

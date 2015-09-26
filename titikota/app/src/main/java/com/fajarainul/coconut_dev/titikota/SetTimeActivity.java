@@ -2,6 +2,7 @@ package com.fajarainul.coconut_dev.titikota;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -15,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.fajarainul.coconut_dev.titikota.data.TitiKotaContract;
 
@@ -37,14 +39,62 @@ public class SetTimeActivity extends ActionBarActivity {
 
                 Fetch fetch = new Fetch(SetTimeActivity.this);
 
-                try{
+                try {
                     fetch.execute();
-                   // progressBar.dismiss();
+                    // progressBar.dismiss();
 
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
 
                 }
+            }
+        });
+
+        RelativeLayout lancar = (RelativeLayout) findViewById(R.id.lancar);
+        lancar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Toast.makeText(SetTimeActivity.this, "lancar clicked", Toast.LENGTH_LONG);
+                Intent i = new Intent(SetTimeActivity.this,TweetList.class);
+                i.putExtra("Kategori","3");
+                startActivity(i);
+            }
+        });
+
+        RelativeLayout ramai_lancar = (RelativeLayout) findViewById(R.id.ramai_lancar);
+        ramai_lancar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Toast.makeText(SetTimeActivity.this,"ramai lancar clicked",Toast.LENGTH_LONG);
+                Intent i = new Intent(SetTimeActivity.this,TweetList.class);
+                i.putExtra("Kategori","2");
+                startActivity(i);
+            }
+        });
+
+        RelativeLayout padat_merayap = (RelativeLayout) findViewById(R.id.padat_merayap);
+        padat_merayap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Toast.makeText(SetTimeActivity.this,"padat merayap clicked",Toast.LENGTH_LONG);
+                Intent i = new Intent(SetTimeActivity.this,TweetList.class);
+                i.putExtra("Kategori","0");
+                startActivity(i);
+            }
+        });
+
+        RelativeLayout macet_total = (RelativeLayout) findViewById(R.id.macet_total);
+        macet_total.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Toast.makeText(SetTimeActivity.this,"macet total clicked",Toast.LENGTH_LONG);
+                Intent i = new Intent(SetTimeActivity.this,TweetList.class);
+                i.putExtra("Kategori","1");
+                startActivity(i);
             }
         });
     }

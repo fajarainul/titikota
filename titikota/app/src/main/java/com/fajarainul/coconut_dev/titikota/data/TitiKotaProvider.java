@@ -33,6 +33,7 @@ public class TitiKotaProvider extends ContentProvider {
     private TitiKotaDbHelper mOpenHelper;
 
     static final int TWEET = 100;
+    static final int CLASS = 101;
 
     private static final SQLiteQueryBuilder sFloodSettingQueryBuilder;
 
@@ -57,12 +58,27 @@ public class TitiKotaProvider extends ContentProvider {
         );
     }
 
+    private Cursor getKategori(Uri uri, String[] projection, String sortOrder){
+        String Kategori = TitiKotaContract.TweetEntry.getClassFromUri(uri);
+        String getClassProjection = TitiKotaContract.TweetEntry.TABLE_NAME+"."+ TitiKotaContract.TweetEntry.COLUMN_CLASS+"=?";
+        return mOpenHelper.getReadableDatabase().query(
+                TitiKotaContract.TweetEntry.TABLE_NAME,
+                projection,
+                getClassProjection,
+                new String[]{Kategori},
+                null,
+                null,
+                sortOrder
+        );
+    }
+
     static UriMatcher buildUriMatcher() {
         final UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
         final String authority = TitiKotaContract.CONTENT_AUTHORITY;
 
         // path for each content provider
         matcher.addURI(authority, TitiKotaContract.PATH_TWEET, TWEET);
+        matcher.addURI(authority, TitiKotaContract.PATH_TWEET+"/*/*", CLASS);
 
         return matcher;
     }
@@ -100,6 +116,11 @@ public class TitiKotaProvider extends ContentProvider {
         switch (sUriMatcher.match(uri)) {
             case TWEET:{
                 retCursor = getTweets(uri, projection, sortOrder);
+                break;
+            }
+
+            case CLASS:{
+                retCursor = getKategori(uri, projection, sortOrder);
                 break;
             }
 
